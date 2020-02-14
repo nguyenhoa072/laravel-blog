@@ -5,16 +5,15 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-  </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
   </script>
@@ -39,6 +38,9 @@
         <li class="{{ request()->is('*category*') ? 'nav-item active' : 'nav-item'}}">
           <a class="nav-link" href="{{ url('/category') }}">Category</a>
         </li>
+        <li class="{{ request()->is('brand*') ? 'nav-item active' : 'nav-item'}}">
+          <a class="nav-link" href="{{ url('/brand') }}">Brand</a>
+        </li>
         <li class="{{ request()->is('products*') ? 'nav-item active' : 'nav-item'}}">
           <a class="nav-link" href="{{ url('/products') }}">Products</a>
         </li>
@@ -52,20 +54,26 @@
         </li>
       </ul>
       <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/" target="_blank">Website</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-            <?php 
-              $name = session()->get('name');
-              if($name) echo $name
-            ?>
+            {{ Auth::user()->name }}
           </a>
           <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> Settings</a>
             <a class="dropdown-item" href="#"><i class="fa fa-user fa-fw" aria-hidden="true"></i> Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{URL::to('/logout')}}">
-              <i class="fa fa-sign-out fa-fw"></i> Logout
-            </a>
+            <a class="dropdown-item" href="{{ URL::to('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+            {{-- <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+              
+              <i class="fa fa-sign-out fa-fw"></i> {{ __('Logout') }}
+            </a> --}}
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+            </form>
           </div>
         </li>
       </ul>
@@ -79,5 +87,11 @@
     </div>
   </div>
 </body>
+<script src="{{ asset('js/input.js') }}"></script>
+<script>
+  $(document).ready(function(){
+    setTimeout(function(){ $(".alert").alert("close"); }, 5000);
+  })
+</script>
 
 </html>

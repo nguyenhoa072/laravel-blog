@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Category;
 
 class CategoryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $all_category = DB::table('categories')->get();
+        $all_category = Category::get();
         return view('backend.category.index', ['category' => $all_category]);
     }
 
@@ -42,7 +49,7 @@ class CategoryController extends Controller
         $data['description'] = $request->description;
         $data['status'] = $request->status;
         
-        DB::table('categories')->insert($data);
+        Category::insert($data);
 
         return redirect('category');
     }
@@ -66,8 +73,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $edit_category = DB::table('categories')->where('id', $id)->get();
-        return view('backend.category.edit', ['edit_category' => $edit_category]);
+        $category = Category::where('id', $id)->get();
+        return view('backend.category.edit', ['category' => $category]);
+        // return view('backend.category.edit', compact('category'));
+
     }
 
     /**
@@ -85,10 +94,10 @@ class CategoryController extends Controller
         $data['description'] = $request->description;
         $data['status'] = $request->status;
         
-        DB::table('categories')->where('id', $id)->update($data);
+        Category::where('id', $id)->update($data);
 
         session()->put('message_title', $data['title']);
-        session()->put('message_success', 'Cập nhật danh mục sản phẩm thành công');
+        session()->put('message_success', 'Cập nhật danh mục Category thành công');
         
         return redirect('category');
     }
@@ -101,22 +110,22 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {       
-        DB::table('categories')->where('id', $id)->delete();
-        session()->put('message_danger', 'Xóa danh mục sản phẩm thành công');
+        Category::where('id', $id)->delete();
+        session()->put('message_danger', 'Xóa danh mục Category thành công');
         return redirect('category');
     }
 
     public function unactive_category($id)
     {
-        DB::table('categories')->where('id', $id)->update(['status'=>0]);
-        session()->put('message_warning', 'Ngừng kích hoạt sản phẩm thành công');
+        Category::where('id', $id)->update(['status'=>0]);
+        session()->put('message_warning', 'Ngừng kích hoạt Category thành công');
         return redirect('category');
     }
 
     public function active_category($id)
     {
-        DB::table('categories')->where('id', $id)->update(['status'=>1]);
-        session()->put('message_success', 'Kích hoạt sản phẩm thành công');
+        Category::where('id', $id)->update(['status'=>1]);
+        session()->put('message_success', 'Kích hoạt Category thành công');
         return redirect('category');
     }
 }

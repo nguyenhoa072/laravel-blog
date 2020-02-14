@@ -3,7 +3,7 @@
 @include('modal')
 <div class="row mb-4">
   <div class="col-lg-4 col-6 mr-auto">
-    <a href="{{ url('/add-category') }}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i> Add Category</a>
+    <a href="{{ url('/add-category') }}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i> Create Category</a>
   </div>
   <div class="col-lg-4 col-6">
     <input type="text" class="form-control" placeholder="Search">
@@ -118,8 +118,6 @@ if($message_success){
 </div>
 <script>
   $(document).ready(function(){
-    setTimeout(function(){ $(".alert").alert("close"); }, 5000);
-
     $('.btn-outline-danger').click(function() {
       var id = $(this).attr('data-id');
       var url = $(this).attr('data-url');

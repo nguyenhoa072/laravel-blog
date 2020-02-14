@@ -5,7 +5,7 @@
     <h5 class="m-0"><i class="fa fa-pencil fa-fw"></i> Edit Category</h5>
   </div>
   <div class="card-body">
-    @foreach ($edit_category as $item)       
+    @foreach ($category as $item)       
     <form action="{{ url('/update-category/'.$item->id) }}" method="POST">
       {{ csrf_field() }}
       <div class="form-group">

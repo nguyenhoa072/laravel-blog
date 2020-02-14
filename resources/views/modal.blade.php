@@ -11,6 +11,7 @@
         <div class="modal-body">
           {{ method_field('DELETE') }}
           {{ csrf_field() }}
+          {{-- <input type="hidden" name="category_id" id="cat_id" value=""> --}}
           <p>Are you sure you, want to delete?</p>
         </div>
         <div class="modal-footer">

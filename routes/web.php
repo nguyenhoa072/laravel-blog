@@ -11,27 +11,32 @@
 |
 */
 
-
+Auth::routes();
 
 //frontend
 
-Route::get('/welcome', function () {
-    return view('frontend.welcome');
-});
 
 Route::get('/','HomeController@index');
 
-
+//-----------------//
 //backend
-Route::get('/login','AdminController@login');
-Route::get('/logout','AdminController@logout');
-Route::get('/dashboard','AdminController@index');
-Route::post('/admin-login','AdminController@admin_login');
 
+
+Route::get('/logout','AdminController@logout');
+Route::get('/dashboard', 'AdminController@index')->name('home');
 
 //products
 Route::resource('products','ProductController');
+Route::get('/unactive-product/{id}','ProductController@unactive_product');
+Route::get('/active-product/{id}','ProductController@active_product');
+Route::post('/delete-multiple','ProductController@delete_multiple');
 
+Route::get('ajaxdata/massremove','ProductController@massremove')->name('ajaxdata.massremove');
+
+//brand
+Route::resource('brand','BrandController');
+Route::get('/unactive-brand/{id}','BrandController@unactive_brand');
+Route::get('/active-brand/{id}','BrandController@active_brand');
 
 //category-product
 
