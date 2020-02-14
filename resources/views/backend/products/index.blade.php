@@ -17,7 +17,14 @@
       Create Product</a>
   </div>
   <div class="col-lg-4 col-6">
-    <input type="text" class="form-control" placeholder="Search">
+    <form action="/search" method="GET">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search" name="search">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="submit">Button</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 <div class="card mt-4">
@@ -51,7 +58,7 @@
             <td>{{ $product->category_title }}</td>
             <td>{{ $product->brand_title }}</td>
             <td>{{ number_format($product->price, 0) }}</td>
-            <td><img src="{{$product->image}}" alt="" height="30"></td>
+            <td><img src="{{asset($product->image)}}" alt="" height="30"></td>
             <td>
               <?php 
               if($product->status) {  

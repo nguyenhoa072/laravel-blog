@@ -52,7 +52,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {        
-        
         if($request->file('image')) {
             // $fileName = $request->file('image')->store('upload/product', 'public');
             $fileExtension  = $request->file('image')->getClientOriginalExtension();
@@ -185,5 +184,14 @@ class ProductController extends Controller
         Product::where('id', $id)->update(['status'=>1]);
         // session()->put('message_success', 'Kích hoạt sản phẩm thành công');
         return redirect('products')->with('message_success', 'Kích hoạt sản phẩm thành công');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->get('search');
+        
+        $products = Product::where('title', 'like', '%'.$search.'%')->paginate(10);
+
+        return view('backend.products.index', compact('products'));
     }
 }

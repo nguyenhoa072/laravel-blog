@@ -54,7 +54,7 @@
             <input type="file" class="custom-file-input" name="image">
             <label class="custom-file-label" for="image">Choose file</label>
           </div>
-          <div class="mt-3"><img src="/upload/products/{{@$product->image}}" alt="" height="100"></div>
+          <div class="mt-3"><img src="{{asset(@$product->image)}}" alt="" height="100"></div>
         </div>
       </div>
       <div class="form-group">

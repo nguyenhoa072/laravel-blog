@@ -22,6 +22,9 @@ Route::get('/','HomeController@index');
 //backend
 
 
+Route::get('/search','ProductController@search');
+
+
 Route::get('/logout','AdminController@logout');
 Route::get('/dashboard', 'AdminController@index')->name('home');
 
