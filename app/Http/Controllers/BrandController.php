@@ -43,7 +43,7 @@ class BrandController extends Controller
     {
         Brand::create($request->all());
 
-        return back();  
+        return back()->with('message_success', 'Thêm mới Brand thành công');;  
     }
 
     /**
@@ -95,16 +95,16 @@ class BrandController extends Controller
         $brand = Brand::findOrFail($request->brand_id);
         $brand->delete();
 
-        return back();
+        return back()->with('message_danger', 'Xóa Brand thành công');
     }
 
-    public function unactive_brand($id)
+    public function deactivated($id)
     {
         Brand::where('id', $id)->update(['status'=>0]);
         return redirect()->route('brand.index')->with('message_warning', 'Ngừng kích hoạt Brand thành công');
     }
 
-    public function active_brand($id)
+    public function activated($id)
     {
         Brand::where('id', $id)->update(['status'=>1]);
         return redirect('brand')->with('message_success', 'Kích hoạt Brand thành công');

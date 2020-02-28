@@ -3,57 +3,27 @@
 @include('modal')
 <div class="row mb-4">
   <div class="col-lg-4 col-6 mr-auto">
-    <a href="{{ url('/add-category') }}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i> Create Category</a>
+    <a href="{{ route('category.create') }}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i>
+      Create Category</a>
   </div>
   <div class="col-lg-4 col-6">
     <input type="text" class="form-control" placeholder="Search">
   </div>
 </div>
-<?php
-$message_title = session()->get('message_title');
-$message_warning = session()->get('message_warning');
-$message_success = session()->get('message_success');
-$message_danger = session()->get('message_danger');
-
-if($message_warning){
-?>
-<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  {{ $message_warning }}
+@if (($message = Session::get('message_warning'))
+|| ($message = Session::get('message_success'))
+|| ($message = Session::get('message_danger')))
+<div class="alert 
+  @if(Session::get('message_warning')) alert-warning 
+  @elseif(Session::get('message_success')) alert-success 
+  @elseif(Session::get('message_danger')) alert-danger 
+  @endif alert-dismissible fade show">
+  {{ $message }}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<?php
-  session()->put('message_warning', null);
-}
-
-if($message_danger){
-?>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  {{ $message_danger }}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php
-  session()->put('message_danger', null);
-}
-
-if($message_success){
-?>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <h5 class="alert-heading">{{ $message_title }}</h5>
-  <hr>
-  <p class="m-0">{{ $message_success }}</p>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php
-  session()->put('message_success', null);
-  session()->put('message_title', null);
-}
-?>
+@endif
 <div class="card mt-4">
   <div class="card-header">
     <h5 class="m-0">Category Product</h5>
@@ -65,6 +35,7 @@ if($message_success){
           <tr>
             <th scope="col" width="1%">#</th>
             <th scope="col">Title</th>
+            <th scope="col">Description</th>
             <th scope="col">Status</th>
             <th scope="col" width="1%">Actions</th>
           </tr>
@@ -74,26 +45,27 @@ if($message_success){
           <tr>
             <th scope="row">{{ $item->id }}</th>
             <td>{{ $item->title }}</td>
+            <td>{{ $item->description }}</td>
             <td>
               <?php 
               if($item->status) {  
             ?>
-              <a href="{{ url('/unactive-category/'.$item->id) }}"><span class='badge badge-success'>ON</span></a>
+              <a href="{{ url('category/deactivated/'.$item->id) }}"><span class='badge badge-success'>ON</span></a>
               <?php
               } else {
             ?>
-              <a href="{{ url('/active-category/'.$item->id) }}"><span class='badge badge-secondary'>OFF</span></a>
+              <a href="{{ url('category/activated/'.$item->id) }}"><span class='badge badge-secondary'>OFF</span></a>
               <?php
               }               
             ?>
             </td>
             <td>
               <div class="btn-group btn-group-sm" role="group">
-                <a class="btn btn-outline-warning" href="{{ url('/edit-category/'.$item->id) }}">Edit</a>
+                <a class="btn btn-outline-warning" href="{{ route('category.edit', $item->id) }}">Edit</a>
                 {{-- <a class="btn btn-outline-danger btn-sm" href="{{ url('/delete-category-product/'.$item->id) }}">Delete</a>
                 --}}
-                <button class="btn btn-outline-danger" data-url="{{ url('delete-category', $item->id) }}"
-                  data-toggle="modal" data-id="{{ $item->id }}" data-target="#delete">Delete</button>
+                <button class="btn btn-outline-danger" data-toggle="modal" data-id="{{ $item->id }}"
+                  data-target="#delete">Delete</button>
               </div>
             </td>
           </tr>
@@ -101,19 +73,7 @@ if($message_success){
         </tbody>
       </table>
     </div>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
-        <li class="page-item disabled">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
+    {!! $category->links() !!}
   </div>
 </div>
 <script>

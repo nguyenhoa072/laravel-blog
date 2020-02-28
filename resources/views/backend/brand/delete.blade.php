@@ -1,8 +1,7 @@
 <div class="modal fade" id="delete_brand">
   <div class="modal-dialog" role="document">
-    <form action="{{ route('brand.destroy', 'delete') }}" method="POST">
-      {{ method_field('DELETE') }}
-      @csrf
+    <form action="{{ route('brand.destroy', 'delete') }}" method="post">
+      @csrf @method('delete')      
       <input type="hidden" name="brand_id" id="brand_id_delete" value="">
       <div class="modal-content">
         <div class="modal-header">

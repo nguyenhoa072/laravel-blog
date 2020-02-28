@@ -7,12 +7,15 @@ use App\Brand;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use ImageResize;
+
 
 class ProductController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
     /**
      * Display a listing of the resource.
@@ -53,11 +56,29 @@ class ProductController extends Controller
     public function store(Request $request)
     {        
         if($request->file('image')) {
+            $slug = Str::slug($request->title, '-');
             // $fileName = $request->file('image')->store('upload/product', 'public');
             $fileExtension  = $request->file('image')->getClientOriginalExtension();
             $uploadPath = 'upload/products/';        
-            $fileName = $uploadPath . time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;            
-            $request->file('image')->move($uploadPath, $fileName);
+            // $fileName = $uploadPath . time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;    
+            $fileName = $uploadPath . $slug . "." . $fileExtension;  
+            
+            
+            $image = $request->file('image');
+            
+            $img = ImageResize::make($image->path());
+
+            // dd($img);
+            
+            $img->resize(500, 500, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($fileName);
+
+            // dd($img);
+            
+            
+            // $image->move($uploadPath, $fileName);           
+            
             
             $data = $request->all();
             $data['image'] = $fileName;
@@ -76,9 +97,11 @@ class ProductController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($slug, $id)
     {
-        //
+        $product = Product::where('id', '=', $id)->first();        
+
+        return view('frontend.products.show', compact('product'));
     }
 
     /**
@@ -111,10 +134,10 @@ class ProductController extends Controller
             if(file_exists($fileImage)) {
                 unlink($fileImage); 
             }  
-            
+            $slug = Str::slug($product->title, '-');
             $fileExtension  = $request->file('image')->getClientOriginalExtension();
             $uploadPath = 'upload/products/';        
-            $fileName = $uploadPath . time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;
+            $fileName = $uploadPath . $slug . "." . $fileExtension;
             $request->file('image')->move($uploadPath, $fileName);
             
             $data = $request->all();
@@ -165,7 +188,8 @@ class ProductController extends Controller
 
         $files_to_delete = $ids->pluck('image')->toArray();
 
-        Storage::disk('public')->delete($files_to_delete);        
+        // Storage::disk('public')->delete($files_to_delete);        
+        \File::delete($files_to_delete);
         Product::whereIn('id', $id)->delete();
 
         return redirect()->route('products.index')->with('message_warning', 'Xóa sản phẩm thành công');

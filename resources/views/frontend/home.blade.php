@@ -1,38 +1,38 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <title>Hello, world!</title>
-</head>
-
-<body>
-
-
-  <div class="container">
-    this is home
-    @yield('content')
+@section('content')
+<div class="container">
+  @include('frontend.brand.index')
+  <div class="row mb-3 align-items-center">
+    <div class="col-6 mr-auto">
+      <h3 class="m-0">Danh sách sản phẩm</h3>
+    </div>
+    <div class="col-3">
+      <form action="" method="GET">
+        <select class="custom-select" name="sort_price" id="sort_price">
+          <option {{@$sortprice === "none" ? 'selected' : ''}} value="none">Sắp xếp</option>
+          <option {{@$sortprice === "desc" ? 'selected' : ''}} value="desc">Giá cao đến thấp</option>
+          <option {{@$sortprice === "asc" ? 'selected' : ''}} value="asc">Giá thấp đến cao</option>
+        </select>
+      </form>
+    </div>
   </div>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-  </script>
-</body>
-
-</html>
+  <div id="result_container"></div>
+  <div class="row">
+    @foreach ($products as $product)
+    <div class="col-md-4 mb-4">
+      <div class="card h-100">
+        <a href="{{route('products.show', ['slug' => Str::slug($product->title), 'id' => $product->id])}}">
+          <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{$product->title}}">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{$product->title}}</h5>
+          <p class="card-text">{{$product->content}}</p>
+          <p><b>Giá: {{$product->price}}</b></p>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+</div>
+@endsection

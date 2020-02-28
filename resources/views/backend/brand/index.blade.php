@@ -3,10 +3,14 @@
 @include('backend.brand.create')
 @include('backend.brand.edit')
 @include('backend.brand.delete')
-@if (($message = Session::get('message_warning')) || ($message = Session::get('message_success')))
-<div
-  class="alert @if(Session::get('message_warning')) alert-warning @else alert-success @endif alert-dismissible fade show"
-  role="alert">
+@if (($message = Session::get('message_warning'))
+|| ($message = Session::get('message_success'))
+|| ($message = Session::get('message_danger')))
+<div class="alert 
+  @if(Session::get('message_warning')) alert-warning 
+  @elseif(Session::get('message_success')) alert-success 
+  @elseif(Session::get('message_danger')) alert-danger 
+  @endif alert-dismissible fade show">
   {{ $message }}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -48,12 +52,12 @@
               <?php 
               if($brand->status) {  
             ?>
-              <a href="{{ url('/unactive-brand/'.$brand->id) }}">
+              <a href="{{ url('brand/deactivated/'.$brand->id) }}">
                 <span class='badge badge-success'>ON</span></a>
               <?php
               } else {
             ?>
-              <a href="{{ url('/active-brand/'.$brand->id) }}">
+              <a href="{{ url('brand/activated/'.$brand->id) }}">
                 <span class='badge badge-secondary'>OFF</span></a>
               <?php
               }               

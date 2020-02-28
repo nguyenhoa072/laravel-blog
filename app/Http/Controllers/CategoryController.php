@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Category;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -21,8 +23,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $all_category = Category::get();
-        return view('backend.category.index', ['category' => $all_category]);
+        $category = Category::paginate(15);
+        return view('backend.category.index', ['category' => $category]);
     }
 
     /**
@@ -41,17 +43,18 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $data = array();
 
-        $data['title'] = $request->title;
-        $data['description'] = $request->description;
-        $data['status'] = $request->status;
-        
-        Category::insert($data);
+        $data = new Category;
 
-        return redirect('category');
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->status = $request->status;
+
+        $data->save();
+
+        return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
 
     /**
@@ -71,12 +74,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::where('id', $id)->get();
         return view('backend.category.edit', ['category' => $category]);
-        // return view('backend.category.edit', compact('category'));
-
     }
 
     /**
@@ -86,20 +86,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $data = array();
+  
+        $data = Category::find($category->id);        
 
-        $data['title'] = $request->title;
-        $data['description'] = $request->description;
-        $data['status'] = $request->status;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->status = $request->status;
         
-        Category::where('id', $id)->update($data);
-
-        session()->put('message_title', $data['title']);
-        session()->put('message_success', 'Cập nhật danh mục Category thành công');
+        $data->save();
         
-        return redirect('category');
+        return redirect('category')->with('message_success', 'Cập nhật thành công');
     }
 
     /**
@@ -108,24 +106,26 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {       
-        Category::where('id', $id)->delete();
-        session()->put('message_danger', 'Xóa danh mục Category thành công');
-        return redirect('category');
+       
+        // Category::destroy($request->id);
+        $category = Category::findOrFail($request->id);
+        $category->delete();
+        // session()->put('message_danger', 'Xóa danh mục thành công');
+        
+        return redirect('category')->with('message_danger', 'Xóa danh mục thành công');
     }
 
-    public function unactive_category($id)
+    public function deactivated($id)
     {
         Category::where('id', $id)->update(['status'=>0]);
-        session()->put('message_warning', 'Ngừng kích hoạt Category thành công');
-        return redirect('category');
+        return redirect('category')>with('message_danger', 'Ngừng kích hoạt thành công');
     }
 
-    public function active_category($id)
+    public function activated($id)
     {
         Category::where('id', $id)->update(['status'=>1]);
-        session()->put('message_success', 'Kích hoạt Category thành công');
-        return redirect('category');
+        return redirect('category')>with('message_danger', 'Kích hoạt thành công');
     }
 }

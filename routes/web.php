@@ -16,7 +16,12 @@ Auth::routes();
 //frontend
 
 
+
 Route::get('/','HomeController@index');
+Route::get('/sort','HomeController@sort');
+// Route::get('{id}','HomeController@brand');
+Route::get('{slug}-{id}.html', ['as' => 'brand', 'uses' => 'HomeController@brand'])->where(['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']);;
+
 
 //-----------------//
 //backend
@@ -29,6 +34,7 @@ Route::get('/logout','AdminController@logout');
 Route::get('/dashboard', 'AdminController@index')->name('home');
 
 //products
+
 Route::resource('products','ProductController');
 Route::get('/unactive-product/{id}','ProductController@unactive_product');
 Route::get('/active-product/{id}','ProductController@active_product');
@@ -36,21 +42,15 @@ Route::post('/delete-multiple','ProductController@delete_multiple');
 
 Route::get('ajaxdata/massremove','ProductController@massremove')->name('ajaxdata.massremove');
 
+Route::get('{slug}-p{id}.html', ['as' => 'products.show', 'uses' => 'ProductController@show'])->where(['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']);
+
+
 //brand
 Route::resource('brand','BrandController');
-Route::get('/unactive-brand/{id}','BrandController@unactive_brand');
-Route::get('/active-brand/{id}','BrandController@active_brand');
+Route::get('brand/deactivated/{id}','BrandController@deactivated');
+Route::get('brand/activated/{id}','BrandController@activated');
 
 //category-product
-
-Route::get('/category','CategoryController@index');
-Route::get('/add-category','CategoryController@create');
-Route::post('/save-category','CategoryController@store');
-
-Route::get('/edit-category/{id}','CategoryController@edit');
-Route::post('/update-category/{id}','CategoryController@update');
-Route::delete('/delete-category/{id}','CategoryController@destroy');
-// Route::get('/delete-category/{id}','CategoryController@destroy');
-
-Route::get('/unactive-category/{id}','CategoryController@unactive_category');
-Route::get('/active-category/{id}','CategoryController@active_category');
+Route::resource('category','CategoryController');
+Route::get('category/deactivated/{id}','CategoryController@deactivated');
+Route::get('category/activated/{id}','CategoryController@activated');
