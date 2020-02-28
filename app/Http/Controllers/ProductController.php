@@ -193,7 +193,6 @@ class ProductController extends Controller
         Product::whereIn('id', $id)->delete();
 
         return redirect()->route('products.index')->with('message_warning', 'Xóa sản phẩm thành công');
-
     }
 
     public function unactive_product($id)

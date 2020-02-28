@@ -110,7 +110,8 @@
       method: "get",
       data: {id: id},
       success:function(data) {
-        location.reload();
+        // location.reload();
+        console.log(data)
       }
     });
   });
