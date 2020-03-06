@@ -90,7 +90,7 @@
     {!! $products->links() !!}
   </div>
 </div>
-<script>
+<script type="application/javascript">
   $('.btSelectItem').click(function(){  
     if($('.btSelectItem:checked').length) {
       $('button').prop("disabled", false);

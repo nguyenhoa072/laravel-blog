@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Category;
+use App\Http\Resources\CategoryCollection;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
@@ -24,7 +25,12 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::paginate(15);
-        return view('backend.category.index', ['category' => $category]);
+        return view('backend.category.category', ['category' => $category]);
+    }
+
+    public function list()
+    {
+        return Category::get();
     }
 
     /**
@@ -32,17 +38,29 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('backend.category.add');
-    }
+    // public function create()
+    // {
+    //     return view('backend.category.add');
+    // }
 
-    /**
+    /**y
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+    //   $post = new Category([
+    //     'title' => $request->get('title'),
+    //     'description' => $request->get('description')
+    //   ]);
+
+    //   $post->save();
+
+    //   return response()->json('successfully added');
+    // }
+    
     public function store(CategoryRequest $request)
     {
 
@@ -52,9 +70,13 @@ class CategoryController extends Controller
         $data->description = $request->description;
         $data->status = $request->status;
 
+        // dd($post);
+
         $data->save();
 
-        return redirect('category')->with('message_success', 'Thêm mới thành công');
+        return response()->json('successfully added');
+        
+        // return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
 
     /**
@@ -115,6 +137,15 @@ class CategoryController extends Controller
         // session()->put('message_danger', 'Xóa danh mục thành công');
         
         return redirect('category')->with('message_danger', 'Xóa danh mục thành công');
+    }
+
+    public function delete($id)
+    {       
+       
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return response(['result' => 'success'], 200);
     }
 
     public function deactivated($id)

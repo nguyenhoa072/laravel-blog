@@ -76,7 +76,7 @@
     {!! $category->links() !!}
   </div>
 </div>
-<script>
+<script type="application/javascript">
   $(document).ready(function(){
     $('.btn-outline-danger').click(function() {
       var id = $(this).attr('data-id');

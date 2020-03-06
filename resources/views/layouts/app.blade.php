@@ -79,7 +79,7 @@
       @yield('content')
     </main>
   </div>
-  <script>
+  <script type="application/javascript">
     window.addEventListener('load', function() {
       var brand = {};
       $('select').change(function(){

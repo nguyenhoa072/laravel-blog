@@ -60,7 +60,7 @@
     </form>
   </div>
 </div>
-<script>
+<script type="application/javascript">
   function myFunction() {
     var str = document.getElementById("price").value;
     var res = str.replace(/,/g, '');  

@@ -80,7 +80,7 @@
     {!! $brands->links() !!}
   </div>
 </div>
-<script>
+<script type="application/javascript">
   $('#edit_brand').on('show.bs.modal', function (event) {
 
       var button = $(event.relatedTarget) 
