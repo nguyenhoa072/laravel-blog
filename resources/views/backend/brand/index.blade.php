@@ -80,6 +80,7 @@
     {!! $brands->links() !!}
   </div>
 </div>
+<a href="{{url('export')}}" class="btn btn-info">Download</a>
 <script type="application/javascript">
   $('#edit_brand').on('show.bs.modal', function (event) {
 

@@ -4,12 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Brand;
 use Illuminate\Http\Request;
+use App\Exports\BrandExport;
+// use Maatwebsite\Excel\Facades\Excel;
 
 class BrandController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    public function export()
+    {
+        $data = Brand::all();
+       
+        // return Excel::download(new BrandExport, 'filename.csv');
+        return (new BrandExport)->download('invoices.xlsx');
+
     }
     
     /**

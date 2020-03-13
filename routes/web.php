@@ -49,7 +49,7 @@ Route::get('{slug}-p{id}.html', ['as' => 'products.show', 'uses' => 'ProductCont
 Route::resource('brand','BrandController');
 Route::get('brand/deactivated/{id}','BrandController@deactivated');
 Route::get('brand/activated/{id}','BrandController@activated');
-
+Route::get('export','BrandController@export');
 
 
 //category-product

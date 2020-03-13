@@ -68,7 +68,6 @@ class CategoryController extends Controller
 
         $data->title = $request->title;
         $data->description = $request->description;
-        $data->status = $request->status;
 
         // dd($post);
 

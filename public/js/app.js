@@ -2013,6 +2013,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.$router.push({
           name: "category"
         });
+      })["catch"](function (error) {
+        _this.errors = error.response.data.errors.title;
       });
     }
   }
@@ -37588,6 +37590,8 @@ var render = function() {
               })
             ]),
             _vm._v(" "),
+            _vm._m(1),
+            _vm._v(" "),
             _c("a", { staticClass: "btn btn-secondary", attrs: { href: "" } }, [
               _vm._v("Cancel")
             ]),
@@ -37609,6 +37613,63 @@ var staticRenderFns = [
         _c("i", { staticClass: "fa fa-plus-circle fa-fw" }),
         _vm._v(" Create Category\n      ")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c(
+        "div",
+        { staticClass: "custom-control custom-radio custom-control-inline" },
+        [
+          _c("input", {
+            staticClass: "custom-control-input",
+            attrs: {
+              type: "radio",
+              id: "customRadioInline2",
+              name: "status",
+              value: "1",
+              checked: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "custom-control-label",
+              attrs: { for: "customRadioInline2" }
+            },
+            [_vm._v("Active")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "custom-control custom-radio custom-control-inline" },
+        [
+          _c("input", {
+            staticClass: "custom-control-input",
+            attrs: {
+              type: "radio",
+              id: "customRadioInline1",
+              name: "status",
+              value: "0"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            {
+              staticClass: "custom-control-label",
+              attrs: { for: "customRadioInline1" }
+            },
+            [_vm._v("Unactive")]
+          )
+        ]
+      )
     ])
   }
 ]

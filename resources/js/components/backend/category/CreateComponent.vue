@@ -24,7 +24,7 @@
             <!-- @error('description')
             <div class="invalid-feedback">{{ $message }}</div>@enderror-->
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <div class="custom-control custom-radio custom-control-inline">
               <input
                 type="radio"
@@ -46,7 +46,7 @@
               />
               <label class="custom-control-label" for="customRadioInline1">Unactive</label>
             </div>
-          </div>-->
+          </div>
           <a class="btn btn-secondary" href>Cancel</a>
           <button class="btn btn-primary">Save</button>
         </form>
@@ -68,7 +68,6 @@ export default {
 
   methods: {
     createCategory() {
-
       let uri = "/category/create";
 
       // if (this.post.title && this.post.description) {
@@ -90,8 +89,11 @@ export default {
         .post(uri, this.post)
         .then(response => {
           this.$router.push({ name: "category" });
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors.title;
         });
     }
   }
-}
+};
 </script>
