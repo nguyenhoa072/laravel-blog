@@ -81,35 +81,42 @@
   </div>
 </div>
 <a href="{{url('export')}}" class="btn btn-info">Download</a>
-<script type="application/javascript">
-  $('#edit_brand').on('show.bs.modal', function (event) {
+@endsection
 
-      var button = $(event.relatedTarget) 
-      var title = button.data('title') 
-      var description = button.data('description') 
-      var brand_id = button.data('id') 
+@section('after_scripts')
+<script type="application/javascript">
+  $(document).ready(function(){
+
+    $('#edit_brand').on('show.bs.modal', function (event) {
+
+      var button = $(event.relatedTarget)
+      var title = button.data('title')
+      var description = button.data('description')
+      var brand_id = button.data('id')
       var status = button.data('status')
-      var modal = $(this)     
+      var modal = $(this)
 
       if(status) {
         document.getElementById('radio_status_edit_brand_active').checked = true;
       } else {
         document.getElementById('radio_status_edit_brand_unactive').checked = true;
-      }  
+      }
 
       modal.find('#title').val(title);
       modal.find('#description').val(description);
       modal.find('#brand_id_edit').val(brand_id);
+
+    })
+
+    $('#delete_brand').on('show.bs.modal', function (event) {
+
+      var button = $(event.relatedTarget)  
+      var brand_id = button.data('id')
+      var modal = $(this)
+      
+      modal.find('#brand_id_delete').val(brand_id);
+      
+    })
   })
-
-  $('#delete_brand').on('show.bs.modal', function (event) {
-
-    var button = $(event.relatedTarget) 
-    var brand_id = button.data('id') 
-    var modal = $(this)
-
-    modal.find('#brand_id_delete').val(brand_id);
-  })
-
 </script>
 @endsection

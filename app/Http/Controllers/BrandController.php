@@ -90,6 +90,8 @@ class BrandController extends Controller
     {
         $brand = Brand::findOrFail($request->brand_id);
 
+        // dd($brand);
+
         $brand->update($request->all());
        
         return back();

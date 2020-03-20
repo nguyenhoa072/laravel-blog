@@ -31,7 +31,7 @@ Route::get('/search','ProductController@search');
 
 
 Route::get('/logout','AdminController@logout');
-Route::get('/dashboard', 'AdminController@index')->name('home');
+Route::get('/dashboard', 'AdminController@index');
 
 //products
 
@@ -50,18 +50,21 @@ Route::resource('brand','BrandController');
 Route::get('brand/deactivated/{id}','BrandController@deactivated');
 Route::get('brand/activated/{id}','BrandController@activated');
 Route::get('export','BrandController@export');
+Route::get('brand.search','BrandController@search')->name('brand.search');
 
 
 //category-product
-Route::post('category/create', 'CategoryController@store');
-Route::get('category/list','CategoryController@list');
+Route::resource('category','CategoryController');
+// Route::get('category/create', 'CategoryController@create');
+// Route::post('category/create', 'CategoryController@store');
+// Route::get('category/list','CategoryController@list');
 // Route::get('category/edit/{id}', 'CategoryController@edit');
 // Route::post('category/update/{id}', 'CategoryController@update');
-Route::delete('category/delete/{id}', 'CategoryController@delete');
-Route::get('category', 'CategoryController@index');
+// Route::delete('category/delete/{id}', 'CategoryController@delete');
+// Route::get('category', 'CategoryController@index');
 // Route::get('category/deactivated/{id}','CategoryController@deactivated');
 // Route::get('category/activated/{id}','CategoryController@activated');
 
-Route::get('/{any}', function () {
-  return view('category');
-})->where('any', '.*');
+// Route::get('/{any}', function () {
+//   return view('category');
+// })->where('any', '.*');

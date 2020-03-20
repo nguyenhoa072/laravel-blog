@@ -25,7 +25,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = Category::paginate(15);
-        return view('backend.category.category', ['category' => $category]);
+        return view('backend.category.index', ['category' => $category]);
     }
 
     public function list()
@@ -38,10 +38,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-    //     return view('backend.category.add');
-    // }
+    public function create()
+    {
+        return view('backend.category.add');
+    }
 
     /**y
      * Store a newly created resource in storage.
@@ -66,16 +66,16 @@ class CategoryController extends Controller
 
         $data = new Category;
 
+        // $data = $request->all();
+        
         $data->title = $request->title;
         $data->description = $request->description;
 
-        // dd($post);
-
         $data->save();
 
-        return response()->json('successfully added');
+        // return response()->json($data);
         
-        // return redirect('category')->with('message_success', 'Thêm mới thành công');
+        return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
 
     /**
@@ -110,7 +110,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {
   
-        $data = Category::find($category->id);        
+        $data = Category::find($category->id);    
 
         $data->title = $request->title;
         $data->description = $request->description;

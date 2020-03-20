@@ -84,10 +84,12 @@
     </div>
   </div>
 </body>
+@yield('after_scripts')
 <script src="{{ asset('js/input.js') }}"></script>
 <script type="application/javascript">
   $(document).ready(function(){
     setTimeout(function(){ $(".alert").alert("close"); }, 5000);
+    
   })
 </script>
 

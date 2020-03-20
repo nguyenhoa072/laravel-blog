@@ -3,7 +3,7 @@
 @include('modal')
 <div class="row mb-4">
   <div class="col-lg-4 col-6 mr-auto">
-    <a href="{{ route('category.create') }}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i>
+    <a href="{{url('category/create')}}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i>
       Create Category</a>
   </div>
   <div class="col-lg-4 col-6">
