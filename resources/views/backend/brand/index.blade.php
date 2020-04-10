@@ -77,7 +77,7 @@
         </tbody>
       </table>
     </div>
-    {!! $brands->links() !!}
+    {{-- {!! $brands->links() !!} --}}
   </div>
 </div>
 <a href="{{url('export')}}" class="btn btn-info">Download</a>

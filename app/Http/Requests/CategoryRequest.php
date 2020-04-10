@@ -25,7 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'description' => 'required'
+            // 'description' => 'required'
         ];    
     }
     
@@ -48,7 +48,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'title' => 'Tiêu đề bài viết',
-            'description' => 'Nội dung bài viết'
+            // 'description' => 'Nội dung bài viết'
         ];
     }
     

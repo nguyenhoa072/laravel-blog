@@ -20,10 +20,12 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.25.0",
         "sass-loader": "7.*",
-        "vue": "^2.5.17",        
+        "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-fileinput": "^5.0.8",
+        "dropzone": "^5.7.0",
         "vue-axios": "^2.1.5",
         "vue-router": "^3.1.6"
     }

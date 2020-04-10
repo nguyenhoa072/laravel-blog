@@ -18,8 +18,6 @@ Auth::routes();
 
 
 Route::get('/','HomeController@index');
-Route::get('/sort','HomeController@sort');
-// Route::get('{id}','HomeController@brand');
 Route::get('{slug}-{id}.html', ['as' => 'brand', 'uses' => 'HomeController@brand'])->where(['slug' => '[a-z\-0-9]+', 'id' => '[0-9]+']);;
 
 
@@ -68,3 +66,8 @@ Route::resource('category','CategoryController');
 // Route::get('/{any}', function () {
 //   return view('category');
 // })->where('any', '.*');
+
+Route::get('/media', 'UploadImagesController@create');
+Route::post('/images-save', 'UploadImagesController@store');
+Route::post('/images-delete', 'UploadImagesController@destroy');
+Route::get('/media', 'UploadImagesController@index');

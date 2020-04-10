@@ -53232,6 +53232,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
+/***/ "./resources/js/test.js":
+/*!******************************!*\
+  !*** ./resources/js/test.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $("#thanh_hoa").click(function () {
+    $(this).hide();
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -53244,13 +53259,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/test.js ./resources/sass/app.scss ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! D:\www\laravel\blog\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\www\laravel\blog\resources\js\test.js */"./resources/js/test.js");
 module.exports = __webpack_require__(/*! D:\www\laravel\blog\resources\sass\app.scss */"./resources/sass/app.scss");
 
 

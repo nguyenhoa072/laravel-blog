@@ -16,51 +16,34 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function __construct()     
+    public function __construct()
     {
         $brand = Brand::where('status', '=', 1)->whereExists(function ($query) {
-                $query->select(DB::raw(1))
-                      ->from('products')
-                      ->whereRaw('products.brand_id = brands.id');
-            })->get();
+            $query->select(DB::raw(1))
+                ->from('products')
+                ->whereRaw('products.brand_id = brands.id');
+        })->get();
 
         View::share('brand', $brand);
-        // view()->share('brand', $brand);        
-    } 
-    
-    public function index()
-    {        
-        $products = Product::where('status', '=', 1)->latest()->get();
-        return view('frontend.home', compact('products'));
     }
 
-    public function Sort(Request $request)
+    public function index(Request $request)
     {
-        $sortprice = $request->get('id');
-        // $sortprice = Input::get('id');
-        // dd($sortprice);
-        if($sortprice === "none")
-            $products = Product::where('status', '=', 1)->latest()->get();
-        else
-            $products = Product::where('status', '=', 1)->orderBy('price', $sortprice)->get();
+        $sort = $request->sort;
+        $sql = Product::where('status', '=', 1);
 
-        // return view('frontend.home', compact('products', 'sortprice'));
-        return response()->json(['products' => $products]);
-
+        if ($sort) {          
+            if ($request->sort === "asc" || $request->sort === "desc") {
+                $products = $sql->orderBy('price', $request->sort)->get();
+                return view('frontend.index', compact('products', 'sort'));
+            }
+            if ($request->sort === "none") {
+                $products = $sql->latest()->get();
+                return view('frontend.index', compact('products', 'sort'));
+            }
+        } else {
+            $products = $sql->latest()->get();
+            return view('frontend.home', compact('products', 'sort'));
+        }
     }
-
-    public function brand(Request $request, $slug, $id)
-    {
-        $products = Product::where('brand_id', '=', $id)->where('status', '=', 1)->latest()->get();      
-          
-        // $sortprice = $request->get('sort_price');
-        // dd($sortprice);
-        // if($sortprice === "none")
-            // $products = Product::where('status', '=', 1)->latest()->get();
-        // else
-            // $products = Product::where('status', '=', 1)->orderBy('price', $sortprice)->get();
-            
-        return view('frontend.home', compact('products'));
-    }
-
 }
