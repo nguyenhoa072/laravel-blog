@@ -19,13 +19,18 @@
     <div class="card-header">
         Images
     </div>
-    <div class="card-body">
+    <div class="card-body" id="list_image">
         <div class="form-row">
-            @foreach($photos as $photo)
-            <div class="col-2 mb-2">
-                <img src="/images/{{ $photo->resized_name }}" class="img-fluid border">
-            </div>
-            @endforeach
+            @if(count($photos)>0)
+                @foreach($photos as $photo)
+                <div class="col-2 mb-2">
+                    <img src="/images/{{ $photo->resized_name }}" class="img-fluid border">
+                    <button class="btn btn-danger btn-sm" onclick="xoaImage()">Xoa</button>
+                </div>
+                @endforeach 
+            @else
+                <p>Không có dữ liệu.</p>   
+            @endif
         </div>
     </div>
 </div>
@@ -84,6 +89,17 @@
 @section('script')
 <script src="{{ asset('plugins/dropzone-5.7.0/dist/min/dropzone.min.js') }}"></script>
 <script>
+    function xoaImage(){
+        $.post({
+            url: '/images-delete',
+            data: {id: file.customName, _token: $('[name="_token"]').val()},
+            dataType: 'json',
+            success: function (data) {
+                total_photos_counter--;
+                $("#counter").text("# " + total_photos_counter);
+            }
+        });
+    }
     var total_photos_counter = 0;
     var name = "";
     Dropzone.options.myDropzone = {
@@ -101,7 +117,9 @@
         },
 
         init: function () {
+            
             this.on("removedfile", function (file) {
+                console.log(file.customName)
                 $.post({
                     url: '/images-delete',
                     data: {id: file.customName, _token: $('[name="_token"]').val()},
@@ -117,6 +135,13 @@
             total_photos_counter++;
             $("#counter").text("# " + total_photos_counter);
             file["customName"] = name;
+
+            $.get({
+                url: '/get-data',
+                success: function(data){
+                    $('#list_image').html(data);
+                }
+            })
         }
     };
 </script>

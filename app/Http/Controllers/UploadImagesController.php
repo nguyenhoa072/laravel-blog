@@ -22,6 +22,15 @@ class UploadImagesController extends Controller
         $photos = Upload::all();
         return view('backend.images.upload', compact('photos'));
     }
+
+    public function getData()
+    {
+        $photos = Upload::all();
+        return view('backend.images.index', compact('photos'));
+        // return Response::json([
+        //     'message' => 'lay thanh cong'
+        // ], 200);
+    }
     
     public function create()
     {

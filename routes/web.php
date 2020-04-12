@@ -71,3 +71,4 @@ Route::get('/media', 'UploadImagesController@create');
 Route::post('/images-save', 'UploadImagesController@store');
 Route::post('/images-delete', 'UploadImagesController@destroy');
 Route::get('/media', 'UploadImagesController@index');
+Route::get('/get-data', 'UploadImagesController@getData');
