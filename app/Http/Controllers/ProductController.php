@@ -7,6 +7,7 @@ use App\Brand;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use ImageResize;
 
@@ -55,6 +56,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {        
+
+        dd($request->all());
+        
+        $rules = ['image' => 'mimes:jpg,jpeg,bmp,png'];
+        $validation = Validator::make($request->all(), $rules);
+
+        dd($validation->fails());
+        
         if($request->file('image')) {
             $slug = Str::slug($request->title, '-');
             // $fileName = $request->file('image')->store('upload/product', 'public');

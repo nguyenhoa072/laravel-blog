@@ -41,8 +41,8 @@
                     <li class="{{ request()->is('products*') ? 'nav-item active' : 'nav-item'}}">
                         <a class="nav-link" href="{{ url('/products') }}">Products</a>
                     </li>
-                    <li class="{{ request()->is('media*') ? 'nav-item active' : 'nav-item'}}">
-                        <a class="nav-link" href="{{ url('/media') }}">Images</a>
+                    <li class="{{ request()->is('upload*') ? 'nav-item active' : 'nav-item'}}">
+                        <a class="nav-link" href="{{ url('/upload') }}">Media Library</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">

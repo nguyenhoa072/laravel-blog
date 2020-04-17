@@ -67,8 +67,7 @@ Route::resource('category','CategoryController');
 //   return view('category');
 // })->where('any', '.*');
 
-Route::get('/media', 'UploadImagesController@create');
+Route::get('/upload', 'UploadImagesController@index');
 Route::post('/images-save', 'UploadImagesController@store');
 Route::post('/images-delete', 'UploadImagesController@destroy');
-Route::get('/media', 'UploadImagesController@index');
 Route::get('/get-data', 'UploadImagesController@getData');

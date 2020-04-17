@@ -50,17 +50,10 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="exampleInputEmail1">Image</label>
-                    {{-- <div class="custom-file">
-            <input type="file" class="custom-file-input" name="image">
-            <label class="custom-file-label" for="image">Choose file</label>
-          </div> --}}
-                    <div>
-                        <div class="fileinput-button">
-                            <i class="glyphicon glyphicon-plus"></i>
-                            <span>Add files...</span>
-                        </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="image">
+                        <label class="custom-file-label" for="image">Choose file</label>
                     </div>
-
                     <div class="mt-3"><img src="{{asset(@$product->image)}}" alt="" height="200"></div>
                 </div>
             </div>
