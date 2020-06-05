@@ -57,18 +57,18 @@ class ProductController extends Controller
     public function store(Request $request)
     {        
 
-        dd($request->all());
+        // dd($request->all());
         
         $rules = ['image' => 'mimes:jpg,jpeg,bmp,png'];
         $validation = Validator::make($request->all(), $rules);
 
-        dd($validation->fails());
+        // dd($validation->fails());
         
         if($request->file('image')) {
             $slug = Str::slug($request->title, '-');
             // $fileName = $request->file('image')->store('upload/product', 'public');
             $fileExtension  = $request->file('image')->getClientOriginalExtension();
-            $uploadPath = 'upload/products/';        
+            $uploadPath = 'uploads/products/';        
             // $fileName = $uploadPath . time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;    
             $fileName = $uploadPath . $slug . "." . $fileExtension;  
             
@@ -86,7 +86,7 @@ class ProductController extends Controller
             // dd($img);
             
             
-            // $image->move($uploadPath, $fileName);           
+            $image->move($uploadPath, $fileName);           
             
             
             $data = $request->all();

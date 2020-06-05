@@ -64,19 +64,21 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
 
-        $data = new Category;
+        // $data = new Category;
+
+        // dd($data);
 
         // $data = $request->all();
         
-        $data->title = $request->title;
-        $data->description = $request->description;
-        $data->status = $request->status;
+        // $data->title = $request->title;
+        // $data->description = $request->description;
+        // $data->status = $request->status;
 
-        $data->save();
+        // $data->save();
 
         // return response()->json($data);
         
-        return redirect('category')->with('message_success', 'Thêm mới thành công');
+        // return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
 
     /**
