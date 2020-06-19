@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Category;
+use Auth;
 use App\Http\Resources\CategoryCollection;
 use App\Http\Requests\CategoryRequest;
 
@@ -14,6 +15,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->authorizeResource(Category::class, 'category');
     }
 
     
@@ -64,21 +66,22 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
 
-        // $data = new Category;
+        $data = new Category;
 
         // dd($data);
 
         // $data = $request->all();
         
-        // $data->title = $request->title;
-        // $data->description = $request->description;
-        // $data->status = $request->status;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->status = $request->status;
+        $data['user_id'] = Auth::user()->id;
 
-        // $data->save();
+        $data->save();
 
-        // return response()->json($data);
+        return response()->json($data);
         
-        // return redirect('category')->with('message_success', 'Thêm mới thành công');
+        return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
 
     /**
@@ -132,6 +135,8 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request)
     {       
+
+        dd($request->id);
        
         // Category::destroy($request->id);
         $category = Category::findOrFail($request->id);
@@ -141,14 +146,14 @@ class CategoryController extends Controller
         return redirect('category')->with('message_danger', 'Xóa danh mục thành công');
     }
 
-    public function delete($id)
-    {       
+    // public function delete($id)
+    // {       
        
-        $category = Category::findOrFail($id);
-        $category->delete();
+    //     $category = Category::findOrFail($id);
+    //     $category->delete();
 
-        return response(['result' => 'success'], 200);
-    }
+    //     return response(['result' => 'success'], 200);
+    // }
 
     public function deactivated($id)
     {

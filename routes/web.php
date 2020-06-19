@@ -63,6 +63,34 @@ Route::resource('category','CategoryController');
 // Route::get('category/deactivated/{id}','CategoryController@deactivated');
 // Route::get('category/activated/{id}','CategoryController@activated');
 
+// Route::get('/', 'CategoryController@index');
+// Route::get('/category', 'CategoryController@index')->name('list_category');
+// Route::group(['prefix' => 'category'], function () {
+//     Route::get('/drafts', 'CategoryController@drafts')
+//         ->name('list_drafts')
+//         ->middleware('auth');
+//     Route::get('/show/{id}', 'CategoryController@show')
+//         ->name('show_category');
+//     Route::get('/create', 'CategoryController@create')
+//         ->name('create_category')
+//         ->middleware('can:category.create');
+//     Route::post('/create', 'CategoryController@store')
+//         ->name('store_category')
+//         ->middleware('can:category.create');
+//     Route::get('/edit/{category}', 'CategoryController@edit')
+//         ->name('edit_category')
+//         ->middleware('can:category.update,category');
+//     Route::post('/edit/{category}', 'CategoryController@update')
+//         ->name('update_category')
+//         ->middleware('can:category.update,category');
+//     Route::get('/publish/{category}', 'CategoryController@publish')
+//         ->name('publish_category')
+//         ->middleware('can:category.publish');
+//     Route::get('/destroy', 'CategoryController@destroy')
+//     ->name('destroy_category')
+//     ->middleware('can:category.destroy,category');
+// });
+
 // Route::get('/{any}', function () {
 //   return view('category');
 // })->where('any', '.*');

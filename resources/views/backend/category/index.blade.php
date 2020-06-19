@@ -3,8 +3,10 @@
 @include('modal')
 <div class="row mb-4">
   <div class="col-lg-4 col-6 mr-auto">
-    <a href="{{url('category/create')}}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i>
+    @can('category.create')
+    <a href="{{route('category.create')}}" class="btn btn-success btn-block"><i class="fa fa-plus-circle fa-fw"></i>
       Create Category</a>
+    @endcan
   </div>
   <div class="col-lg-4 col-6">
     <input type="text" class="form-control" placeholder="Search">
@@ -61,11 +63,15 @@
             </td>
             <td>
               <div class="btn-group btn-group-sm" role="group">
+                @can('category.edit')
                 <a class="btn btn-outline-warning" href="{{ route('category.edit', $item->id) }}">Edit</a>
+                @endcan
                 {{-- <a class="btn btn-outline-danger btn-sm" href="{{ url('/delete-category-product/'.$item->id) }}">Delete</a>
                 --}}
+                {{-- @can('category.destroy') --}}
                 <button class="btn btn-outline-danger" data-toggle="modal" data-id="{{ $item->id }}"
                   data-target="#delete">Delete</button>
+                  {{-- @endcan --}}
               </div>
             </td>
           </tr>

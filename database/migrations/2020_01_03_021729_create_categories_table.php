@@ -18,7 +18,10 @@ class CreateCategoriesTable extends Migration
             $table->string('title');
             $table->string('description')->nullable();
             $table->tinyInteger('status');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

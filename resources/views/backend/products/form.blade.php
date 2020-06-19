@@ -85,10 +85,10 @@
     </div>
 </div>
 <script type="application/javascript">
-    function myFunction() {
-    var str = document.getElementById("price").value;
-    var price = str.replace(/,/g, '');  
-    document.getElementById("price").value = price;
-  }
+//     function myFunction() {
+//     var str = document.getElementById("price").value;
+//     var price = str.replace(/,/g, '');  
+//     document.getElementById("price").value = price;
+//   }
 </script>
 @endsection
