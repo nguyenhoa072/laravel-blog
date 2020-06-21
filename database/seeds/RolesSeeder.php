@@ -12,26 +12,10 @@ class RolesSeeder extends Seeder
      */
     public function run()
     {
-        $author = Role::create([
-            'name' => 'Người dùng',
-            'slug' => 'user',
-            'permissions' => [
-                'category.index' => true,
-                'category.show' => true,
-            ]
-        ]);
-        $editor = Role::create([
-            'name' => 'Người quản lý',
-            'slug' => 'administrator',
-            'permissions' => [
-                'category.index' => true,
-                'category.show' => true,
-                'category.create' => true,
-                'category.store' => true,
-                'category.edit' => true,
-                'category.update' => true,                
-                'category.destroy' => true,
-            ]
-        ]);
+        Role::truncate();
+
+        Role::create(['name' => 'admin']);
+        Role::create(['name' => 'author']);
+        Role::create(['name' => 'user']);
     }
 }

@@ -24,6 +24,10 @@ Route::get('{slug}-{id}.html', ['as' => 'brand', 'uses' => 'HomeController@brand
 //-----------------//
 //backend
 
+Route::middleware('can:manage-user')->group(function(){
+    Route::resource('users','UsersController', ['except'=>['show','create','store']]);
+});
+
 
 Route::get('/search','ProductController@search');
 

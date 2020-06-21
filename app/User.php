@@ -42,19 +42,22 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_users');
     }
 
-    public function hasAccess(array $permissions): bool
+    public function hasAnyRoles($roles)
     {
-        // check if the permission is available in any role
-        foreach ($this->roles as $role) {
-            if ($role->hasAccess($permissions)) {
-                return true;
-            }
+        if($this->roles()->whereIn('name', $roles)->first()){
+            return true;
         }
+
         return false;
     }
 
-    public function inRole(string $roleSlug)
+    public function hasRole($role)
     {
-        return $this->roles()->where('slug', $roleSlug)->count() == 1;
+        if($this->roles()->where('name', $role)->first()){
+            return true;
+        }
+
+        return false;
     }
+
 }
