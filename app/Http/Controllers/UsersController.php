@@ -50,7 +50,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
+        $request->validate([
+            'name'=> 'required',
+            'roles' => 'required',
+        ]);
+       
         $user->roles()->sync($request->roles);
+        
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->save();
 
         return redirect()->route('users.index');
     }

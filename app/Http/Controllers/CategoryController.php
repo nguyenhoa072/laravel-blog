@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->authorizeResource(Category::class, 'category');
+        // $this->authorizeResource(Category::class, 'category');
     }
 
     
@@ -78,8 +78,6 @@ class CategoryController extends Controller
         $data['user_id'] = Auth::user()->id;
 
         $data->save();
-
-        return response()->json($data);
         
         return redirect('category')->with('message_success', 'Thêm mới thành công');
     }
@@ -136,9 +134,6 @@ class CategoryController extends Controller
     public function destroy(Request $request)
     {       
 
-        dd($request->id);
-       
-        // Category::destroy($request->id);
         $category = Category::findOrFail($request->id);
         $category->delete();
         // session()->put('message_danger', 'Xóa danh mục thành công');

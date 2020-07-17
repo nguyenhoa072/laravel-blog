@@ -54,12 +54,15 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">
+                            {{-- <a class="dropdown-item" href="#">
                                 <i class="fa fa-cog fa-fw" aria-hidden="true"></i> Settings
+                            </a> --}}
+                            <a class="dropdown-item" href="#">
+                                <i class="fa fa-key fa-fw" aria-hidden="true"></i> Change password
                             </a>
                             @can('manage-user')
                             <a class="dropdown-item" href="{{url('/users')}}">
-                                <i class="fa fa-users fa-fw" aria-hidden="true"></i> Profile
+                                <i class="fa fa-users fa-fw" aria-hidden="true"></i> Manage users
                             </a>
                             @endcan
                             <div class="dropdown-divider"></div>

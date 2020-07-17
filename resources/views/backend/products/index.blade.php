@@ -1,20 +1,16 @@
 @extends('layouts.master')
+
 @section('admin_content')
+
 @include('backend.products.delete')
-@if (($message = Session::get('message_warning')) || ($message = Session::get('message_success')))
-<div class="alert @if(Session::get('message_warning')) alert-warning @else alert-success @endif alert-dismissible fade show"
-    role="alert">
-    {{ $message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-@endif
+
+@include('backend.message')
+
 <div class="row mb-4">
     <div class="col-lg-4 col-6 mr-auto">
-        <a href="{{ route('products.create') }}" class="btn btn-success btn-block"><i
-                class="fa fa-plus-circle fa-fw"></i>
-            Create Product</a>
+        <a href="{{ route('products.create') }}" class="btn btn-success btn-block">
+            <i class="fa fa-plus-circle fa-fw"></i> Create Product
+        </a>
     </div>
     <div class="col-lg-4 col-6">
         <form action="/search" method="GET">
@@ -94,34 +90,44 @@
         {!! $products->links() !!}
     </div>
 </div>
-<script type="application/javascript">
-window.addEventListener('load', function() {
-    $('.btSelectItem').click(function() {
-        if ($('.btSelectItem:checked').length) {
-            $('button').prop("disabled", false);
-            console.log($('.btSelectItem:checked').length);
-        } else {
-            $('button').prop("disabled", true);
-        }
-    });
 
-    $("#submit_delete_product").click(function() {
-        var id = [];
-        $('.btSelectItem:checked').each(function() {
-            id.push($(this).val());
-        });
-        $.ajax({
-            url: "{{ route('ajaxdata.massremove') }}",
-            method: "get",
-            data: {
-                id: id
-            },
-            success: function(data) {
-                // location.reload();
-                console.log(data)
+@endsection
+
+@section('script')
+
+<script type="application/javascript">
+
+    window.addEventListener('load', function() {
+
+        $('.btSelectItem').click(function() {
+            if ($('.btSelectItem:checked').length) {
+                $('button').prop("disabled", false);
+                console.log($('.btSelectItem:checked').length);
+            } else {
+                $('button').prop("disabled", true);
             }
         });
-    });
-})
+
+        $("#submit_delete_product").click(function() {
+            var id = [];
+            $('.btSelectItem:checked').each(function() {
+                id.push($(this).val());
+            });
+            $.ajax({
+                url: "{{ route('ajaxdata.massremove') }}",
+                method: "get",
+                data: {
+                    id: id
+                },
+                success: function(data) {
+                    // location.reload();
+                    console.log(data)
+                }
+            });
+        });
+
+    })
+
 </script>
+
 @endsection

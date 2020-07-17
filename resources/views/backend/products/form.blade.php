@@ -1,5 +1,7 @@
 @extends('layouts.master')
+
 @section('admin_content')
+
 <div class="card">
     <div class="card-header text-white bg-success">
         <h5 class="m-0"><i class="fa fa-pencil fa-fw"></i> {{ isset($product->id) ? 'Edit Product' : 'Create Product' }}
@@ -84,11 +86,17 @@
         </form>
     </div>
 </div>
+
+@endsection
+
+@section('script')
+
 <script type="application/javascript">
-//     function myFunction() {
-//     var str = document.getElementById("price").value;
-//     var price = str.replace(/,/g, '');  
-//     document.getElementById("price").value = price;
-//   }
+    function myFunction() {
+    var str = document.getElementById("price").value;
+    var price = str.replace(/,/g, '');  
+    document.getElementById("price").value = price;
+  }
 </script>
+
 @endsection
