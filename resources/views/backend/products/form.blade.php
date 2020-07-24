@@ -15,12 +15,19 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="exampleInputEmail1">Title</label>
-                    <input type="text" class="form-control" name="title" value="{{ @$product->title }}" required>
+                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                        value="{{ @$product->title }}">
+                    @error('title')
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
                 </div>
                 <div class="form-group col-md-6">
                     <label for="Price">Price</label>
-                    <input type="text" class="form-control" id="price" name="price"
-                        value="{{ number_format(@$product->price, 0) }}" data-type="currency" required>
+                    <input type="text" class="form-control @error('price') is-invalid @enderror" id="price" name="price"
+                        value="{{ number_format(@$product->price, 0) }}" data-type="currency">
+                    @error('price')
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
                 </div>
             </div>
             <div class="form-row">
@@ -53,8 +60,12 @@
                 <div class="form-group col-md-6">
                     <label for="exampleInputEmail1">Image</label>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" name="image">
+                        <input type="file" class="custom-file-input @error('image') is-invalid @enderror" name="image"
+                            id="image">
                         <label class="custom-file-label" for="image">Choose file</label>
+                        @error('image')
+                        <div class="invalid-feedback"> {{ $message }} </div>
+                        @enderror
                     </div>
                     <div class="mt-3"><img src="{{asset(@$product->image)}}" alt="" height="200"></div>
                 </div>
@@ -93,10 +104,18 @@
 
 <script type="application/javascript">
     function myFunction() {
-    var str = document.getElementById("price").value;
-    var price = str.replace(/,/g, '');  
-    document.getElementById("price").value = price;
-  }
+        var str = document.getElementById("price").value;
+        var price = str.replace(/,/g, '');  
+        document.getElementById("price").value = price;
+    }
+
+    window.addEventListener('load', function() {      
+        document.querySelector('.custom-file-input').addEventListener('change',function(e){
+            var fileName = document.getElementById("image").files[0].name;
+            var nextSibling = e.target.nextElementSibling
+            nextSibling.innerText = fileName
+        })
+    })
 </script>
 
 @endsection

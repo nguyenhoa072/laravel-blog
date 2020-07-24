@@ -7,7 +7,6 @@ use App\Brand;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use ImageResize;
 
@@ -57,10 +56,11 @@ class ProductController extends Controller
     public function store(Request $request)
     {        
 
-        // dd($request->all());
-        
-        $rules = ['image' => 'mimes:jpg,jpeg,bmp,png'];
-        $validation = Validator::make($request->all(), $rules);
+        $request->validate([
+            'title' => 'required',
+            'price' => 'required',
+            'image' => 'required|mimes:jpg,jpeg,bmp,png'
+        ]);
 
         // dd($validation->fails());
         
@@ -70,24 +70,17 @@ class ProductController extends Controller
             $fileExtension  = $request->file('image')->getClientOriginalExtension();
             $uploadPath = 'uploads/products/';        
             // $fileName = $uploadPath . time() . "_" . rand(0,9999999) . "_" . md5(rand(0,9999999)) . "." . $fileExtension;    
-            $fileName = $uploadPath . $slug . "." . $fileExtension;  
-            
+            $fileName = $uploadPath . $slug . "." . $fileExtension;              
             
             $image = $request->file('image');
             
             $img = ImageResize::make($image->path());
-
-            // dd($img);
             
             $img->resize(500, 500, function ($constraint) {
                 $constraint->aspectRatio();
-            })->save($fileName);
-
-            // dd($img);
+            })->save($fileName);            
             
-            
-            $image->move($uploadPath, $fileName);           
-            
+            $image->move($uploadPath, $fileName);          
             
             $data = $request->all();
             $data['image'] = $fileName;

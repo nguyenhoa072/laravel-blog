@@ -24,32 +24,32 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:100',
+            'title' => 'required',
             // 'description' => 'required'
         ];    
     }
     
-    public function messages() 
+    // public function messages() 
+    // {
+    //     return [
+    //         'title.required' => 'Tiêu đề bài viết không được bỏ trống',
+    //         'description.required' => 'Nội dung bài viết không được bỏ trống'
+    //     ];
+    // }
+
+    public function messages()
     {
         return [
-            'title.required' => 'Tiêu đề bài viết không được bỏ trốngyyy',
-            'description.required' => 'Nội dung bài viết không được bỏ trống'
+            'required' => ':attribute không được bỏ trống'
         ];
     }
 
-    // public function messages()
-    // {
-    //     return [
-    //         'required' => ':attribute không được bỏ trống'
-    //     ];
-    // }
-
-    // public function attributes()
-    // {
-    //     return [
-    //         'title' => 'Tiêu đề bài viết',
-    //         // 'description' => 'Nội dung bài viết'
-    //     ];
-    // }
+    public function attributes()
+    {
+        return [
+            'title' => 'Tiêu đề bài viết',
+            'description' => 'Nội dung bài viết'
+        ];
+    }
     
 }

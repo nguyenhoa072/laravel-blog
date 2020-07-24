@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Brand;
 use Illuminate\Http\Request;
 use App\Exports\BrandExport;
-// use Maatwebsite\Excel\Facades\Excel;
 
 class BrandController extends Controller
 {

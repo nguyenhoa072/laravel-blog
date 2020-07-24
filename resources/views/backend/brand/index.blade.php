@@ -25,7 +25,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover" data-toggle="dataTable"
+            <table class="table table-striped table-hover" data-toggle="dataTable"
                 data-form="deleteForm">
                 <thead>
                     <tr>
@@ -41,13 +41,15 @@
                         <th scope="row">{{ $brand->id }}</th>
                         <td>{{ $brand->title }}</td>
                         <td>
-                            <?php if($brand->status) { ?>
+                            @if($brand->status)
                             <a href="{{ url('brand/deactivated/'.$brand->id) }}">
-                                <span class='badge badge-success'>ON</span></a>
-                            <?php } else { ?>
+                                <span class='badge badge-success'>ON</span>
+                            </a>
+                            @else
                             <a href="{{ url('brand/activated/'.$brand->id) }}">
-                                <span class='badge badge-secondary'>OFF</span></a>
-                            <?php } ?>
+                                <span class='badge badge-secondary'>OFF</span>
+                            </a>
+                            @endif
                         </td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group">
@@ -55,8 +57,9 @@
                                     data-target="#edit_brand" data-title="{{$brand->title}}"
                                     data-description="{{$brand->description}}" data-status="{{$brand->status}}"
                                     data-id={{$brand->id}}>Edit</button>
-                            <button type="submit" class="btn btn-outline-danger" data-id={{$brand->id}} data-title="{{$brand->title}}"
-                                    data-toggle="modal" data-target="#delete_brand">Delete</button>
+                                <button type="submit" class="btn btn-outline-danger" data-id={{$brand->id}}
+                                    data-title="{{$brand->title}}" data-toggle="modal"
+                                    data-target="#delete_brand">Delete</button>
                             </div>
                         </td>
                     </tr>
@@ -74,7 +77,6 @@
 @section('script')
 
 <script type="application/javascript">
-
     window.addEventListener("load", function() {
 
         $(document).ready(function(){

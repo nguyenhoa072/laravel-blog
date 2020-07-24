@@ -24,7 +24,7 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered table-striped table-hover" data-toggle="dataTable"
+			<table class="table table-striped table-hover" data-toggle="dataTable"
 				data-form="deleteForm">
 				<thead>
 					<tr>
@@ -41,33 +41,23 @@
 						<th scope="row">{{ $item->id }}</th>
 						<td>{{ $item->title }}</td>
 						<td>{{ $item->description }}</td>
-						<td>
-							<?php 
-              if($item->status) {  
-            ?>
-							<a href="{{ url('category/deactivated/'.$item->id) }}"><span
-									class='badge badge-success'>ON</span></a>
-							<?php
-              } else {
-            ?>
-							<a href="{{ url('category/activated/'.$item->id) }}"><span
-									class='badge badge-secondary'>OFF</span></a>
-							<?php
-              }               
-            ?>
+						<td>			
+							@if($item->status)
+							<a href="{{ url('category/deactivated/'.$item->id) }}">
+								<span class='badge badge-success'>ON</span>
+							</a>
+							@else					
+							<a href="{{ url('category/activated/'.$item->id) }}">
+								<span class='badge badge-secondary'>OFF</span>
+							</a>
+							@endif
 						</td>
 						<td>
-							<div class="btn-group btn-group-sm" role="group">
-							
+							<div class="btn-group btn-group-sm" role="group">							
 								<a class="btn btn-outline-warning"
-									href="{{ route('category.edit', $item->id) }}">Edit</a>
-					
-								{{-- <a class="btn btn-outline-danger btn-sm" href="{{ url('/delete-category-product/'.$item->id) }}">Delete</a>
-								--}}
-								{{-- @can('category.destroy') --}}
+									href="{{ route('category.edit', $item->id) }}">Edit</a>				
 								<button class="btn btn-outline-danger" data-toggle="modal" data-id="{{ $item->id }}"
 									data-target="#delete">Delete</button>
-								{{-- @endcan --}}
 							</div>
 						</td>
 					</tr>
