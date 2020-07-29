@@ -74,6 +74,7 @@ class CategoryController extends Controller
 
     public function deactivated($id)
     {
+        dd('dsad');
         Category::where('id', $id)->update(['status'=>0]);
         return redirect('category')->with('message_warning', 'Ngừng kích hoạt thành công');
     }
