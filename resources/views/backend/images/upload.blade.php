@@ -93,7 +93,7 @@
                     if (item.success) {
                         title = $('<div class="alert alert-success mb-1"></div>').html('<strong>' + item.message + ' </strong> ' + item.title);
                         $("#messages").append(title);
-                        toastr.success(data.message)
+                        // toastr.success(data.message)
                     } else {
                         console.log(item)
                         title = $('<div class="alert alert-danger mb-1"></div>').html('<strong>' + item.message.file + '</strong> ' + item.title);
