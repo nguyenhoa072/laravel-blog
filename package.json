@@ -28,7 +28,7 @@
         "bootstrap-fileinput": "^5.0.8",
         "bootstrap-table": "^1.16.0",
         "dropzone": "^5.7.0",
-        "jquery-validation": "^1.19.2",
+        "jquery-validation": "^1.19.4",
         "moment": "^2.26.0",
         "toastr": "^2.1.4",
         "vue-axios": "^2.1.5",
